@@ -14,7 +14,7 @@ namespace Assets
         public float noiseScaleZ = 8;
         public int chunkLoadDist = 3; // How many chunks from the player
         public int chunkSize=12;
-        const float noiseVerticalDivisor = 256; // Divide vertical height of noise by this.
+        public const float noiseVerticalDivisor = 256; // Divide vertical height of noise by this.
 
         public SettingsData()
         {

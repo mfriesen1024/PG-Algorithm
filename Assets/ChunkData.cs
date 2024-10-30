@@ -53,7 +53,7 @@ namespace Assets
                 {
                     Block b = GameObject.CreatePrimitive(PrimitiveType.Cube).AddComponent<Block>();
                     b.Type = BlockType.Grass;
-                    b.transform.position = new(x, noiseValues[x, z], z);
+                    b.transform.position = new(x, noiseValues[x, z]*data.noiseScaleZ/SettingsData.noiseVerticalDivisor, z);
                     b.transform.parent = transform;
                 }
             }
