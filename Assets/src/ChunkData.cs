@@ -58,14 +58,14 @@ namespace Assets
                     int surfaceHeight = (int)(noiseValues[x, z] * data.noiseScaleZ / SettingsData.noiseVerticalDivisor);
 
                     // Fill everything below our surface height with dirt.
-                    for (int y = 0; y < surfaceHeight - 1; y++)
+                    for (int y = 0; y < surfaceHeight; y++)
                     {
                         blockTypes[x, y, z] = BlockType.Dirt;
                     }
                     // Set our surface block to grass.
-                    blockTypes[x,surfaceHeight-1,z]= BlockType.Grass;
+                    blockTypes[x,surfaceHeight,z]= BlockType.Grass;
                     // Fill everything above with air.
-                    for(int y = surfaceHeight; y < blockTypes.GetLength(1); y++)
+                    for(int y = surfaceHeight+1; y < blockTypes.GetLength(1); y++)
                     {
                         blockTypes[x, y, z] = BlockType.Air;
                     }
