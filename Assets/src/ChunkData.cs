@@ -55,7 +55,7 @@ namespace Assets
             {
                 for (int z = 0; z < noiseValues.GetLength(1); z++)
                 {
-                    int surfaceHeight = (int)noiseValues[x, z];
+                    int surfaceHeight = (int)(noiseValues[x, z] * data.noiseScaleZ / SettingsData.noiseVerticalDivisor);
 
                     // Fill everything below our surface height with dirt.
                     for (int y = 0; y < surfaceHeight - 1; y++)
@@ -104,7 +104,7 @@ namespace Assets
             Block block = GameObject.CreatePrimitive(PrimitiveType.Cube).AddComponent<Block>();
             block.Type = type;
             int offsetX = (int)GlobalLoc.x; int offsetZ = (int)GlobalLoc.y;
-            block.transform.position = new(x+offsetX, y * data.noiseScaleZ / SettingsData.noiseVerticalDivisor, z+offsetZ);
+            block.transform.position = new(x+offsetX, y, z+offsetZ);
             block.transform.parent = transform;
             blocks[x, y, z] = block;
         }
