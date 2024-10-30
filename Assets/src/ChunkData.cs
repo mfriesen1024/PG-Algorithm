@@ -89,8 +89,10 @@ namespace Assets
                         try { zn = blockTypes[x, y, z-1] != BlockType.Air; } catch { zn = false; }
                         try { zp = blockTypes[x, y, z+1] != BlockType.Air; } catch { zp = false; }
 
-                        // Now throw everything in a 7 way and gate, and if successful, render the block.
-                        if (blockTypes[x,y,z] != BlockType.Air && (nx&&px&&ny&&py&&nz&&pz))
+                        // Now compare everything.
+                        bool adjacencyCheck = !(xn && xp && yn && yp && zn && zp);
+                        BlockType blockType = blockTypes[x, y, z];
+                        if (blockType != BlockType.Air && adjacencyCheck)
                         {
                             PlaceBlock(x,y,z, blockTypes[x,y,z]);    
                         }
