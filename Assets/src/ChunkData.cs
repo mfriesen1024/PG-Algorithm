@@ -38,10 +38,10 @@ namespace Assets
             this.location = location;
             this.data = data;
 
-            Generate(GlobalLoc);
+            Generate();
         }
 
-        void Generate(Vector2 offset)
+        void Generate()
         {
             // do proper octave generation later.
             float[,] noiseValues = Noise.Calc2D(data.chunkSize, data.chunkSize, data.noiseScaleXY);
@@ -55,8 +55,20 @@ namespace Assets
             {
                 for (int z = 0; z < noiseValues.GetLength(1); z++)
                 {
-                    // our top block should never be fully surrounded, so always instantiate a box for it.
-                    SetBlock( x, (int)noiseValues[x, z], z, BlockType.Grass);
+                    int surfaceHeight = (int)noiseValues[x, z];
+
+                    // Fill everything below our surface height with dirt.
+                    for (int y = 0; y < surfaceHeight - 1; y++)
+                    {
+                        blockTypes[x, y, z] = BlockType.Dirt;
+                    }
+                    // Set our surface block to grass.
+                    blockTypes[x,surfaceHeight-1,z]= BlockType.Grass;
+                    // Fill everything above with air.
+                    for(int y = surfaceHeight; y < blockTypes.GetLength(1); y++)
+                    {
+                        blockTypes[x, y, z] = BlockType.Air;
+                    }
                 }
             }
         }
@@ -65,7 +77,8 @@ namespace Assets
         {
             Block block = GameObject.CreatePrimitive(PrimitiveType.Cube).AddComponent<Block>();
             block.Type = type;
-            block.transform.position = new(x, y * data.noiseScaleZ / SettingsData.noiseVerticalDivisor, z);
+            int offsetX = (int)GlobalLoc.x; int offsetZ = (int)GlobalLoc.y;
+            block.transform.position = new(x+offsetX, y * data.noiseScaleZ / SettingsData.noiseVerticalDivisor, z+offsetZ);
             block.transform.parent = transform;
             blocks[x, y, z] = block;
         }

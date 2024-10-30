@@ -2,6 +2,8 @@
 {
     internal enum BlockType
     {
+        Air,
+        Dirt,
         Grass
     }
 }
