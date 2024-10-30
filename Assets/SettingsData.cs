@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets
 {
@@ -12,6 +13,7 @@ namespace Assets
         public float noiseScaleXY = 1;
         public float noiseScaleZ = 8;
         public int chunkLoadDist = 3; // How many chunks from the player
+        public int chunkSize;
         const float noiseVerticalDivisor = 256; // Divide vertical height of noise by this.
 
         public SettingsData()
