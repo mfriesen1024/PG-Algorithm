@@ -22,7 +22,6 @@ public class TerrainGenerator : MonoBehaviour
     {
         // For now, just generate one chunk with coords 0,0.
         ChunkData cd = new GameObject().AddComponent<ChunkData>();
-        Console.WriteLine();
         cd.Init(data, new(0, 0));
         chunks.Add(cd);
     }
