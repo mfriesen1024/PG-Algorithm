@@ -2,5 +2,6 @@
 {
     internal enum BlockType
     {
+        Grass
     }
 }
