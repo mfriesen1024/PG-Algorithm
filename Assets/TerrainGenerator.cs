@@ -20,7 +20,7 @@ public class TerrainGenerator : MonoBehaviour
         string dirName = "data";
         Directory.CreateDirectory(dirName);
         if (File.Exists(fName)) { data = new(File.ReadAllLines(fName)); }
-        else { data = new(); File.WriteAllLines(data.ToLines()); }
+        else { data = new(); File.WriteAllLines(fName, data.ToLines()); }
     }
 
     // Update is called once per frame
