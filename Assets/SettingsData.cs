@@ -19,11 +19,17 @@ namespace Assets
 
         public SettingsData(string[] fileData)
         {
+            noiseScaleXY = float.Parse(fileData[0]);
+            noiseScaleZ = float.Parse(fileData[1]);
         }
 
         internal string[] ToLines()
         {
-            throw new NotImplementedException();
+            string[] data = {
+            noiseScaleXY.ToString(),
+            noiseScaleZ.ToString()
+            };
+            return data;
         }
     }
 }
