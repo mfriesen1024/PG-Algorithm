@@ -71,6 +71,32 @@ namespace Assets
                     }
                 }
             }
+
+            // Now, check for adjacent blocks other than air. If we get 6 directly adjacent, or the block is air, don't render the block. Otherwise, place it.
+            for (int x = 0; x < blockTypes.GetLength(0); x++)
+            {
+                for(int y = 0; y < blockTypes.GetLength(1); y++)
+                {
+                    for (int z = 0; z < blockTypes.GetLength(2); z++)
+                    {
+                        // bools for negative/positive in each direction.
+                        bool nx, px, ny, py, nz, pz;
+                        // Check if there's air, and if index out of range, set false.
+                        try { nx = blockTypes[x - 1, y, z] != BlockType.Air; } catch { nx = false; }
+                        try { px = blockTypes[x - 1, y, z] != BlockType.Air; } catch { px = false; }
+                        try { ny = blockTypes[x - 1, y, z] != BlockType.Air; } catch { ny = false; }
+                        try { py = blockTypes[x - 1, y, z] != BlockType.Air; } catch { py = false; }
+                        try { nz = blockTypes[x - 1, y, z] != BlockType.Air; } catch { nz = false; }
+                        try { pz = blockTypes[x - 1, y, z] != BlockType.Air; } catch { pz = false; }
+
+                        // Now throw everything in a 7 way and gate, and if successful, render the block.
+                        if (blockTypes[x,y,z] != BlockType.Air && (nx&&px&&ny&&py&&nz&&pz))
+                        {
+                            SetBlock(x,y,z, blockTypes[x,y,z]);    
+                        }
+                    }
+                }
+            }
         }
 
         private void SetBlock( int x, int y, int z, BlockType type)
