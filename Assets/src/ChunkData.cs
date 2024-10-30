@@ -80,26 +80,26 @@ namespace Assets
                     for (int z = 0; z < blockTypes.GetLength(2); z++)
                     {
                         // bools for negative/positive in each direction.
-                        bool nx, px, ny, py, nz, pz;
+                        bool xn, xp, yn, yp, zn, zp;
                         // Check if there's air, and if index out of range, set false.
-                        try { nx = blockTypes[x - 1, y, z] != BlockType.Air; } catch { nx = false; }
-                        try { px = blockTypes[x - 1, y, z] != BlockType.Air; } catch { px = false; }
-                        try { ny = blockTypes[x - 1, y, z] != BlockType.Air; } catch { ny = false; }
-                        try { py = blockTypes[x - 1, y, z] != BlockType.Air; } catch { py = false; }
-                        try { nz = blockTypes[x - 1, y, z] != BlockType.Air; } catch { nz = false; }
-                        try { pz = blockTypes[x - 1, y, z] != BlockType.Air; } catch { pz = false; }
+                        try { xn = blockTypes[x-1, y, z] != BlockType.Air; } catch { xn = false; }
+                        try { xp = blockTypes[x+1, y, z] != BlockType.Air; } catch { xp = false; }
+                        try { yn = blockTypes[x, y-1, z] != BlockType.Air; } catch { yn = false; }
+                        try { yp = blockTypes[x, y+1, z] != BlockType.Air; } catch { yp = false; }
+                        try { zn = blockTypes[x, y, z-1] != BlockType.Air; } catch { zn = false; }
+                        try { zp = blockTypes[x, y, z+1] != BlockType.Air; } catch { zp = false; }
 
                         // Now throw everything in a 7 way and gate, and if successful, render the block.
                         if (blockTypes[x,y,z] != BlockType.Air && (nx&&px&&ny&&py&&nz&&pz))
                         {
-                            SetBlock(x,y,z, blockTypes[x,y,z]);    
+                            PlaceBlock(x,y,z, blockTypes[x,y,z]);    
                         }
                     }
                 }
             }
         }
 
-        private void SetBlock( int x, int y, int z, BlockType type)
+        private void PlaceBlock( int x, int y, int z, BlockType type)
         {
             Block block = GameObject.CreatePrimitive(PrimitiveType.Cube).AddComponent<Block>();
             block.Type = type;
