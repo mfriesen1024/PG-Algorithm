@@ -7,7 +7,9 @@ using UnityEngine;
 
 public class TerrainGenerator : MonoBehaviour
 {
-    SettingsData data;
+    [SerializeField] private SettingsData data;
+    public SettingsData Data { get => data; private set => data = value; }
+
     // Start is called before the first frame update
     void Start()
     {
