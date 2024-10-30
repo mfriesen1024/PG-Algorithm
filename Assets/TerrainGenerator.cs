@@ -1,6 +1,5 @@
 using Assets;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -23,6 +22,7 @@ public class TerrainGenerator : MonoBehaviour
     {
         // For now, just generate one chunk with coords 0,0.
         ChunkData cd = new GameObject().AddComponent<ChunkData>();
+        Console.WriteLine();
         cd.Init(data, new(0, 0));
         chunks.Add(cd);
     }
@@ -32,13 +32,22 @@ public class TerrainGenerator : MonoBehaviour
         string fName = "data\\settings.txt";
         string dirName = "data";
         Directory.CreateDirectory(dirName);
-        if (File.Exists(fName)) { data = new(File.ReadAllLines(fName)); }
-        else { data = new(); File.WriteAllLines(fName, data.ToLines()); }
+        if (File.Exists(fName))
+        {
+            try { data ??= new(File.ReadAllLines(fName)); }
+            catch (IndexOutOfRangeException ignored) { backup(); }
+        }
+        else { backup(); }
+
+        void backup()
+        {
+            data ??= new(); File.WriteAllLines(fName, data.ToLines());
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

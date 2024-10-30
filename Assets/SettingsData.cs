@@ -13,7 +13,7 @@ namespace Assets
         public float noiseScaleXY = 1;
         public float noiseScaleZ = 8;
         public int chunkLoadDist = 3; // How many chunks from the player
-        public int chunkSize;
+        public int chunkSize=12;
         const float noiseVerticalDivisor = 256; // Divide vertical height of noise by this.
 
         public SettingsData()
@@ -25,6 +25,7 @@ namespace Assets
             noiseScaleXY = float.Parse(fileData[0]);
             noiseScaleZ = float.Parse(fileData[1]);
             chunkLoadDist = int.Parse(fileData[2]);
+            chunkSize = int.Parse(fileData[3]);
         }
 
         internal string[] ToLines()
@@ -32,7 +33,8 @@ namespace Assets
             string[] data = {
             noiseScaleXY.ToString(),
             noiseScaleZ.ToString(),
-            chunkLoadDist.ToString()
+            chunkLoadDist.ToString(),
+            chunkSize.ToString()
             };
             return data;
         }
