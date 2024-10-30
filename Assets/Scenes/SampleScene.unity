@@ -245,6 +245,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33ac1f8194432ca41a587dae90d06e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data:
+    noiseScaleXY: 0.05
+    noiseScaleZ: 8
+    chunkLoadDist: 3
+    chunkSize: 12
 --- !u!4 &925846646
 Transform:
   m_ObjectHideFlags: 0
