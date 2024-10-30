@@ -16,7 +16,7 @@ namespace Assets
         Vector2 location;
         SettingsData data;
 
-        Block[,] blocks;
+        Block[,,] blocks;
 
         public Vector2 GlobalLoc { get => GetGlobalLoc(); }
 
@@ -45,18 +45,29 @@ namespace Assets
         {
             // do proper octave generation later.
             float[,] noiseValues = Noise.Calc2D(data.chunkSize, data.chunkSize, data.noiseScaleXY);
-            blocks = new Block[data.chunkSize, data.chunkSize];
+            blocks = new Block[data.chunkSize, data.chunkSize*2, data.chunkSize];
 
+            // Set an array of blocktypes so we can ensure culling works as intended.
+            BlockType[,,] blockTypes = new BlockType[data.chunkSize,data.chunkSize*2,data.chunkSize];
+
+            // Fill each vertical "stack"
             for (int x = 0; x < noiseValues.GetLength(0); x++)
             {
                 for (int z = 0; z < noiseValues.GetLength(1); z++)
                 {
-                    Block b = GameObject.CreatePrimitive(PrimitiveType.Cube).AddComponent<Block>();
-                    b.Type = BlockType.Grass;
-                    b.transform.position = new(x, (int)(noiseValues[x, z] * data.noiseScaleZ / SettingsData.noiseVerticalDivisor), z);
-                    b.transform.parent = transform;
+                    // our top block should never be fully surrounded, so always instantiate a box for it.
+                    SetBlock( x, (int)noiseValues[x, z], z, BlockType.Grass);
                 }
             }
+        }
+
+        private void SetBlock( int x, int y, int z, BlockType type)
+        {
+            Block block = GameObject.CreatePrimitive(PrimitiveType.Cube).AddComponent<Block>();
+            block.Type = type;
+            block.transform.position = new(x, y * data.noiseScaleZ / SettingsData.noiseVerticalDivisor, z);
+            block.transform.parent = transform;
+            blocks[x, y, z] = block;
         }
 
         private void OnDestroy()
