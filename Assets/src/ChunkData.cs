@@ -44,6 +44,7 @@ namespace Assets
         void Generate()
         {
             // do proper octave generation later.
+            try { Noise.Seed = data.seed1; } catch { }
             float[,] noiseValues = Noise.Calc2D(data.chunkSize, data.chunkSize, data.noiseScaleXY);
             blocks = new Block[data.chunkSize, data.chunkSize*2, data.chunkSize];
 
