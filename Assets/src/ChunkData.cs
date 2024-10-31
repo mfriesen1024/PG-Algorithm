@@ -13,7 +13,7 @@ namespace Assets
     /// </summary>
     internal class ChunkData : MonoBehaviour
     {
-        Vector2 location;
+        public Vector2 Location { get; private set; }
         SettingsData data;
 
         Block[,,] blocks;
@@ -24,7 +24,7 @@ namespace Assets
         {
             try
             {
-                return location * data.chunkSize;
+                return Location * data.chunkSize;
             }
             catch (NullReferenceException e)
             {
@@ -35,7 +35,7 @@ namespace Assets
 
         public void Init(SettingsData data, Vector2 location)
         {
-            this.location = location;
+            this.Location = location;
             this.data = data;
 
             Generate();
