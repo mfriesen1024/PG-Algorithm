@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Colour = UnityEngine.Color;
 
 namespace Assets
 {
@@ -19,8 +20,8 @@ namespace Assets
 
             switch(type)
             {
-                case BlockType.Dirt: renderer.material.color = Color.HSVToRGB(0.166f,0.75f,0.5f); break;
-                    case BlockType.Grass: renderer.material.color = Color.green; break;
+                case BlockType.Dirt: renderer.material.color = Colour.HSVToRGB(0.166f,0.75f,0.5f); break;
+                    case BlockType.Grass: renderer.material.color = Colour.green; break;
             }
         }
     }
