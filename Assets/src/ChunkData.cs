@@ -114,7 +114,11 @@ namespace Assets
 
         private void OnDestroy()
         {
-
+            foreach(Block block in blocks)
+            {
+                if(block != null) { Destroy(block.gameObject); }
+            }
+            Destroy(gameObject);
         }
     }
 }
