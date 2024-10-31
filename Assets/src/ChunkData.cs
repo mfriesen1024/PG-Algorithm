@@ -45,7 +45,14 @@ namespace Assets
         {
             // do proper octave generation later.
             try { Noise.Seed = data.seed1; } catch { }
-            float[,] noiseValues = Noise.Calc2D(data.chunkSize, data.chunkSize, data.noiseScaleXY);
+            float[,] noiseValues = new float[data.chunkSize, data.chunkSize];
+            for(int x = 0; x < noiseValues.GetLength(0);x++)
+            {
+                for (int z = 0; z < noiseValues.GetLength(1); z++)
+                {
+                    noiseValues[x, z] = Noise.CalcPixel2D((int)(x +GlobalLoc.x), (int)(z +GlobalLoc.y), data.noiseScaleXY);
+                }
+            }
             blocks = new Block[data.chunkSize, data.chunkSize*2, data.chunkSize];
 
             // Set an array of blocktypes so we can ensure culling works as intended.
