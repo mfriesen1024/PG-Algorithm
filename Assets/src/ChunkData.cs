@@ -101,7 +101,7 @@ namespace Assets
             {
                 bool b = false;
                 // Now, check for adjacent blocks other than air. If we get 6 directly adjacent, or the block is air, don't render the block. Otherwise, place it.
-                while (x < blockTypes.GetLength(2))
+                while (x < blockTypes.GetLength(2)&&y<blockTypes.GetLength(1)&&z<blockTypes.GetLength(0))
                 {
                     if (b) { return; }
 
@@ -132,8 +132,8 @@ namespace Assets
             void UpdateXYZ()
             {
                 z++;
-                if (z >= blockTypes.GetLength(2)) { z = 0; y++; }
-                if (y >= blockTypes.GetLength(1)) { y = 0; x++; }
+                if (z >= blockTypes.GetLength(2)) { z = 0; x++; }
+                if (x >= blockTypes.GetLength(0)) { x = 0; y++; }
                 Console.WriteLine("" + x + y + z);
             }
         }
