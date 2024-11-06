@@ -14,6 +14,9 @@ namespace Assets
 
         Block[,,] blocks;
 
+        // Use this to generate 
+        int x, y, z;
+
         public Vector2 GlobalLoc { get => GetGlobalLoc(); }
 
         private Vector2 GetGlobalLoc()
@@ -39,6 +42,8 @@ namespace Assets
 
         void Generate()
         {
+            x = 0; y = 0; z = 0;
+
             // do proper octave generation later.
             try { Noise.Seed = data.seed1; } catch { }
             float[,] noiseValues = new float[data.chunkSize, data.chunkSize];

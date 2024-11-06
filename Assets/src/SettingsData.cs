@@ -17,6 +17,8 @@ namespace Assets
         public int seed1;
         public const float noiseVerticalDivisor = 256; // Divide vertical height of noise by this.
 
+        public int blocksPerTick=8;
+
         public SettingsData()
         {
         }
