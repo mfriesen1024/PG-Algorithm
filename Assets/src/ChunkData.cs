@@ -101,51 +101,40 @@ namespace Assets
             {
                 bool b = false;
                 // Now, check for adjacent blocks other than air. If we get 6 directly adjacent, or the block is air, don't render the block. Otherwise, place it.
-                for (int x = this.x; x < blockTypes.GetLength(0); x++)
+                while (x < blockTypes.GetLength(2))
                 {
-                    for (int y = this.y; y < blockTypes.GetLength(1); y++)
+                    if (b) { return; }
+
+                    // bools for negative/positive in each direction.
+                    bool xn, xp, yn, yp, zn, zp;
+                    // Check if there's air, and if index out of range, set false.
+                    try { xn = blockTypes[x - 1, y, z] != BlockType.Air; } catch { xn = false; }
+                    try { xp = blockTypes[x + 1, y, z] != BlockType.Air; } catch { xp = false; }
+                    try { yn = blockTypes[x, y - 1, z] != BlockType.Air; } catch { yn = false; }
+                    try { yp = blockTypes[x, y + 1, z] != BlockType.Air; } catch { yp = false; }
+                    try { zn = blockTypes[x, y, z - 1] != BlockType.Air; } catch { zn = false; }
+                    try { zp = blockTypes[x, y, z + 1] != BlockType.Air; } catch { zp = false; }
+
+                    // Now compare everything.
+                    bool adjacencyCheck = !(xn && xp && yn && yp && zn && zp);
+                    BlockType blockType = blockTypes[x, y, z];
+                    if (blockType != BlockType.Air && adjacencyCheck)
                     {
-                        for (int z = this.z; z < blockTypes.GetLength(2); z++)
-                        {
-                            if (b) { return; }
-
-                            // bools for negative/positive in each direction.
-                            bool xn, xp, yn, yp, zn, zp;
-                            // Check if there's air, and if index out of range, set false.
-                            try { xn = blockTypes[x - 1, y, z] != BlockType.Air; } catch { xn = false; }
-                            try { xp = blockTypes[x + 1, y, z] != BlockType.Air; } catch { xp = false; }
-                            try { yn = blockTypes[x, y - 1, z] != BlockType.Air; } catch { yn = false; }
-                            try { yp = blockTypes[x, y + 1, z] != BlockType.Air; } catch { yp = false; }
-                            try { zn = blockTypes[x, y, z - 1] != BlockType.Air; } catch { zn = false; }
-                            try { zp = blockTypes[x, y, z + 1] != BlockType.Air; } catch { zp = false; }
-
-                            // Now compare everything.
-                            bool adjacencyCheck = !(xn && xp && yn && yp && zn && zp);
-                            BlockType blockType = blockTypes[x, y, z];
-                            if (blockType != BlockType.Air && adjacencyCheck)
-                            {
-                                PlaceBlock(x, y, z, blockTypes[x, y, z]);
-                            }
-
-                            b = Blerg(x, y, z);
-                        }
+                        PlaceBlock(x, y, z, blockTypes[x, y, z]); count++; if (count >= data.blocksPerTick) { b = true; }
                     }
+                    UpdateXYZ();
                 }
                 Debug.Log($"4 {x},{y},{z}");
                 if (b) return;
                 Debug.Log($"Finished generation in {framesToGenerate} frames."); ready = false;
             }
 
-            bool Blerg(int x, int y, int z)
+            void UpdateXYZ()
             {
-                bool zCarry = false, yCarry = false;
-                this.z = z % (blockTypes.GetLength(2) - 1);
-                if (z == blockTypes.GetLength(2) - 1) { y++; zCarry = true; }
-                this.y = zCarry ? y : y % (blockTypes.GetLength(1) - 1);
-                if (y == blockTypes.GetLength(1) - 1) { x++; yCarry = true; }
-                this.x = yCarry ? x : x % (blockTypes.GetLength(0) - 1);
-                framesToGenerate++; Debug.Log("" + count + framesToGenerate + z + y + x + zCarry + yCarry); count++;
-                return count > data.blocksPerTick;
+                z++;
+                if (z >= blockTypes.GetLength(2)) { z = 0; y++; }
+                if (y >= blockTypes.GetLength(1)) { y = 0; x++; }
+                Console.WriteLine("" + x + y + z);
             }
         }
 
