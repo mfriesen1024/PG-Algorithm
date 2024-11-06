@@ -107,7 +107,7 @@ namespace Assets
                     {
                         for (int z = this.z; z < blockTypes.GetLength(2); z++)
                         {
-                            if (b) { continue; }
+                            if (b) { return; }
 
                             // bools for negative/positive in each direction.
                             bool xn, xp, yn, yp, zn, zp;
