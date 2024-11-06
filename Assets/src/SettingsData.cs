@@ -18,6 +18,8 @@ namespace Assets
         public int waterLvl = 3;
         public const float noiseVerticalDivisor = 256; // Divide vertical height of noise by this.
 
+        public int blocksPerTick=8;
+
         public SettingsData()
         {
         }
@@ -30,6 +32,7 @@ namespace Assets
             chunkSize = int.Parse(fileData[3]);
             seed1 = int.Parse(fileData[4]);
             waterLvl = int.Parse(fileData[5]);
+            blocksPerTick = int.Parse(fileData[6]);
         }
 
         internal string[] ToLines()
@@ -39,8 +42,9 @@ namespace Assets
             noiseScaleZ.ToString(),
             chunkLoadDist.ToString(),
             chunkSize.ToString(),
-            seed1.ToString()
+            seed1.ToString(),
             waterLvl.ToString(),
+            blocksPerTick.ToString()
             };
             return data;
         }

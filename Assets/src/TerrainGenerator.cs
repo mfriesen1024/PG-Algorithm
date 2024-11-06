@@ -70,9 +70,9 @@ public class TerrainGenerator : MonoBehaviour
         {
             for (int z2 = z - data.chunkLoadDist; z2 < z + data.chunkLoadDist + 1; z2++)
             {
-                Vector2 chunkPos = new Vector2(x2, z2), globalChunkPos = chunkPos*data.chunkSize;
+                Vector2 chunkPos = new Vector2(x2, z2), globalChunkPos = chunkPos * data.chunkSize;
                 // if out of range, continue.
-                if (Vector3.Distance(camPos2D, globalChunkPos) > data.chunkLoadDist*data.chunkSize) { continue; }
+                if (Vector3.Distance(camPos2D, globalChunkPos) > data.chunkLoadDist * data.chunkSize) { continue; }
 
                 // Check if we have the chunk already
                 bool shouldMake = true;
@@ -87,7 +87,7 @@ public class TerrainGenerator : MonoBehaviour
                     ChunkData chunk = new GameObject("Chunk").AddComponent<ChunkData>();
                     chunk.Init(data, chunkPos);
                     chunks.Add(chunk);
-        Debug.Log(null);
+                    Debug.Log(null);
                 }
             }
         }
