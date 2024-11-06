@@ -4,6 +4,7 @@
     {
         Air,
         Dirt,
-        Grass
+        Grass,
+        Water
     }
 }

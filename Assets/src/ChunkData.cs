@@ -82,6 +82,14 @@ namespace Assets
                     {
                         blockTypes[x, y, z] = BlockType.Air;
                     }
+                    // If water level is above surface, overwrite whatever was there and fill water up to surface.
+                    if (data.waterLvl > surfaceHeight)
+                    {
+                        for(int y = surfaceHeight + 1; y < data.waterLvl; y++)
+                        {
+                            blockTypes[x, y, z] = BlockType.Water;
+                        }
+                    }
                 }
             }
 
