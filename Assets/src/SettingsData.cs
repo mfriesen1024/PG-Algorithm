@@ -30,6 +30,7 @@ namespace Assets
             chunkLoadDist = int.Parse(fileData[2]);
             chunkSize = int.Parse(fileData[3]);
             seed1 = int.Parse(fileData[4]);
+            blocksPerTick = int.Parse(fileData[6]);
         }
 
         internal string[] ToLines()
@@ -39,7 +40,8 @@ namespace Assets
             noiseScaleZ.ToString(),
             chunkLoadDist.ToString(),
             chunkSize.ToString(),
-            seed1.ToString()
+            seed1.ToString(),
+            blocksPerTick.ToString()
             };
             return data;
         }
