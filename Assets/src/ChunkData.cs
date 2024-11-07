@@ -1,5 +1,6 @@
 ﻿using SimplexNoise;
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets
@@ -9,6 +10,7 @@ namespace Assets
     /// </summary>
     internal class ChunkData : MonoBehaviour
     {
+        static BlockType[] renderIfAdjacent { get; } = { BlockType.Air, BlockType.Water };
         public Vector2 Location { get; private set; }
         SettingsData data;
 
@@ -116,12 +118,12 @@ namespace Assets
                     // bools for negative/positive in each direction.
                     bool xn, xp, yn, yp, zn, zp;
                     // Check if there's air, and if index out of range, set false.
-                    try { xn = blockTypes[x - 1, y, z] != BlockType.Air; } catch { xn = false; }
-                    try { xp = blockTypes[x + 1, y, z] != BlockType.Air; } catch { xp = false; }
-                    try { yn = blockTypes[x, y - 1, z] != BlockType.Air; } catch { yn = false; }
-                    try { yp = blockTypes[x, y + 1, z] != BlockType.Air; } catch { yp = false; }
-                    try { zn = blockTypes[x, y, z - 1] != BlockType.Air; } catch { zn = false; }
-                    try { zp = blockTypes[x, y, z + 1] != BlockType.Air; } catch { zp = false; }
+                    try { xn = RenderCheck(x-1,y,z); } catch { xn = false; }
+                    try { xp = RenderCheck(x + 1, y, z); } catch { xp = false; }
+                    try { yn = RenderCheck(x, y - 1, z); } catch { yn = false; }
+                    try { yp = RenderCheck(x, y + 1, z); } catch { yp = false; }
+                    try { zn = RenderCheck(x, y, z - 1); } catch { zn = false; }
+                    try { zp = RenderCheck(x, y, z + 1); } catch { zp = false; }
 
                     // Now compare everything.
                     bool adjacencyCheck = !(xn && xp && yn && yp && zn && zp);
@@ -144,6 +146,13 @@ namespace Assets
                 if (x >= blockTypes.GetLength(0)) { x = 0; y++; }
                 Console.WriteLine("" + x + y + z);
             }
+        }
+
+        private bool RenderCheck(int x,int y,int z)
+        {
+            // Checks if the force render list contains the blocktype at the given coordinates.
+            var typeList = renderIfAdjacent.ToList();
+            return !typeList.Contains(blockTypes[x, y, z]);
         }
 
         private void PlaceBlock(int x, int y, int z, BlockType type)
