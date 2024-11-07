@@ -13,9 +13,14 @@ public class TerrainGenerator : MonoBehaviour
 
     [SerializeField] CameraController camController;
 
+    public static TerrainGenerator instance;
+    public UnityObjectRefs refs;
+
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
+
         Load();
         Generate();
     }

@@ -246,6 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camController: {fileID: 963194229}
+  refs: {fileID: 11400000, guid: 18de81b5bf8535644b80aee9992f1fe4, type: 2}
 --- !u!4 &925846646
 Transform:
   m_ObjectHideFlags: 0
