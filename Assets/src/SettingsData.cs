@@ -10,12 +10,12 @@ namespace Assets
     [Serializable]
     public class SettingsData
     {
-        public float noiseScaleXY = 1;
-        public float noiseScaleZ = 8;
+        public float noiseScaleXY = 0.035f;
+        public float noiseScaleZ = 16;
         public int chunkLoadDist = 3; // How many chunks from the player
-        public int chunkSize=12;
-        public int seed1;
-        public int waterLvl = 3;
+        public int chunkSize=16;
+        public int seed1 = 0;
+        public int waterLvl = 5;
         public const float noiseVerticalDivisor = 256; // Divide vertical height of noise by this.
 
         public int blocksPerTick=8;
