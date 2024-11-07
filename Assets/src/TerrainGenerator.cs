@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TerrainGenerator : MonoBehaviour
 {
-    [SerializeField] private SettingsData data;
+    private SettingsData data;
     public SettingsData Data { get => data; private set => data = value; }
 
     List<ChunkData> chunks = new();
