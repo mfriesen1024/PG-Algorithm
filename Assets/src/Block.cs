@@ -14,6 +14,8 @@ namespace Assets
             var renderer = GetComponent(typeof(MeshRenderer)) as MeshRenderer;
             Material standardShaderMaterial = renderer.material;
 
+            name = type.ToString();
+
             switch (type)
             {
                 case BlockType.Dirt: renderer.material.color = Colour.HSVToRGB(0.166f, 0.75f, 0.5f); break;
