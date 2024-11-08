@@ -1,2 +1,2 @@
-# PG-TerrainGen1
+# ProcGen-TerrainGen1
  
